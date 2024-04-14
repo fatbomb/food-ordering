@@ -1,7 +1,12 @@
 import Right from "@/components/icons/Right";
 import Image from "next/image";
+import dynamic from 'next/dynamic'; // Import dynamic for lazy loading
+
+const Slideshow = dynamic(() => import('./Slideshow'), { ssr: false }); // Lazy load Slideshow component
 
 export default function Hero() {
+  const images = ['/pizza.png', '/burger.png']; // Define the images for the slideshow
+
   return (
     <section className="hero md:mt-4">
       <div className="py-8 md:py-12">
@@ -27,8 +32,9 @@ export default function Hero() {
           </button>
         </div>
       </div>
-      <div className="relative hidden md:block">
-        <Image src={'/pizza.png'} layout={'fill'} objectFit={'contain'} alt={'pizza'} />
+      {/* Use lazy loaded Slideshow component */}
+      <div>
+        <Slideshow images={images} />
       </div>
     </section>
   );
